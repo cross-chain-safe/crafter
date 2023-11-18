@@ -1,13 +1,8 @@
+import 'dotenv/config'
+
 import { ethers } from 'ethers'
 import Safe, { EthersAdapter } from '@safe-global/protocol-kit'
-import dotenv from 'dotenv'
-import SafeApiKit from '@safe-global/api-kit'
-import { SafeFactory } from '@safe-global/protocol-kit'
-import { SafeAccountConfig } from '@safe-global/protocol-kit'
 import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
-
-
-dotenv.config()
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL='https://eth-goerli.public.blastapi.io'
@@ -19,12 +14,12 @@ export async function getTransaction () {
     // // Initialize signers
     const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
     
-    const ethAdapterOwner1 = new EthersAdapter({
+    const ethersAdapter = new EthersAdapter({
         ethers,
         signerOrProvider: owner1Signer
     })
 
-    const safeSdkOwner1 = await Safe.create({ ethAdapter: ethAdapterOwner1, safeAddress })    
+    const safeSdkOwner = await Safe.create({ ethAdapter: ethersAdapter, safeAddress })
 
     // Any address can be used. In this example you will use vitalik.eth
     const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
@@ -36,5 +31,5 @@ export async function getTransaction () {
         value: amount
     }
     // Create a Safe transaction with the provided parameters
-    return await safeSdkOwner1.createTransaction({ safeTransactionData })
+    return await safeSdkOwner.createTransaction({ safeTransactionData })
 }

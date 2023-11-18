@@ -5,7 +5,7 @@ import SafeApiKit from '@safe-global/api-kit'
 import { SafeFactory } from '@safe-global/protocol-kit'
 import { SafeAccountConfig } from '@safe-global/protocol-kit'
 import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
-import { getTransaction } from './createTransaction'
+import { getTransaction } from '../transaction/createTransaction'
 
 
 dotenv.config()
